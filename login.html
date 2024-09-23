@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/gh/maketline/goodday/font/stylesheet.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        body {
+            font-family: 'line_seed_sans_th';
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>กำลังเข้าสู่ระบบ...</title>
+</head>
+  
+<body>
+  
+    <div class="absolute bg-white bg-opacity-60 z-10 h-full w-full flex items-center justify-center">
+        <div class="flex items-center">
+            <span class="text-3xl mr-4">Loading..</span>
+            <div class="relative flex justify-center items-center">
+                <div class="absolute animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-yellow-500"></div>
+                <img src="https://pd-01.vercel.app/LoadingGifTMK.gif" class="rounded-full h-28 w-28">
+            </div>
+        </div>
+    </div>
+
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      
+        $(document).ready(function () {
+            var liffId = "2006299121-ZD5j5nnQ"; //จุด 1 ที่ต้องเปลี่ยน
+            initializeLiff(liffId);
+        });
+
+        function initializeLiff(liffId) {
+            liff.init({
+                liffId: liffId,
+                withLoginOnExternalBrowser: true,
+            })
+            .then(() => {
+                if (!liff.isInClient() && !liff.isLoggedIn()) {
+                    window.alert("กรุณาเข้าสู่ระบบบัญชี LINE ของคุณ");
+                    liff.login({ redirectUri: location.href });
+                }
+                liff.ready.then(() => {
+                    const userId = liff.getDecodedIDToken().sub;
+                    const name = liff.getDecodedIDToken().name;
+                    const picture = liff.getDecodedIDToken().picture;
+                    sendToGoogleSheet(userId, name, picture);
+                });
+            })
+            .catch((err) => {
+                console.log('LIFF Initialization failed', err);
+            });
+        }
+
+        function sendToGoogleSheet(userId, name, picture) {
+            $.post('https://script.google.com/macros/s/AKfycbxd60MEesNEIRX63Xox2AK0o7Ws8cnXOa607CGq65P6_32lVGUwcHAdHs33LVz__Ia5/exec', { userId: userId, name: name, picture: picture })
+            .done(function(response) {
+                if (response.statusCode === 200) {
+                    const flexMessage = JSON.parse(response.body);
+                    liff.sendMessages([flexMessage]);
+                    Swal.fire(
+                        'ดำเนินการสำเร็จ',
+                        'คุณ ' + name + ' ลงทะเบียนแล้ว',
+                        'success'
+                    ).then(() => {
+                        liff.closeWindow();
+                    });
+                }
+            })
+            .fail(function(error) {
+                Swal.fire('ดำเนินการไม่สำเร็จ', 'โปรดทำการลงทะเบียนก่อน', 'warning').then(() => {
+                    liff.closeWindow();
+                });
+            });
+        }
+      
+    </script>
+  
+</body>
+</html>
+

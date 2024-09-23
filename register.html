@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบลงทะเบียน</title>
+
+    <!-- font-awesome@6.2.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+    <!-- jquery@3.6.0 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@200;300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Noto Sans Thai', sans-serif;
+        }
+
+        body {
+            background-color: white;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+        .list {
+            background-color: #ffffff;
+            padding: 1.8em 1.2em;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border-radius: 0.6em;
+        }
+
+        .qBox {
+            border: solid 2px #525150 !important;
+            padding: 1rem;
+            margin: 0 10px;
+            border-radius: 13px;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        label {
+            color: black;
+        }
+
+        .container {
+            max-width: 600px;
+        }
+
+        button[type="submit"] {
+            font-family: 'Noto Sans Thai', sans-serif;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 10px;
+            padding: 3%;
+            background: #e06666;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            border-top-style: none;
+            border-right-style: none;
+            border-left-style: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background: #b1dd4b;
+            color: #000;
+        }
+
+        #button {
+            display: inline-block;
+            background-color: #61d72e;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            border-radius: 4px;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            transition: background-color .3s, opacity .5s, visibility .5s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        #button::after {
+            content: "\f077";
+            font-family: FontAwesome;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 2em;
+            line-height: 50px;
+            color: #fff;
+        }
+
+        #button:hover {
+            cursor: pointer;
+            background-color: #333;
+        }
+
+        #button:active {
+            background-color: #555;
+        }
+
+        #button.show {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <a id="button"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <center>
+        <br />
+        <img src="https://pd-01.vercel.app/LogoTMKG01.png" style="width:200px; height:auto; padding-bottom: 10px;">
+        <div class="form-group mb-2">
+            <label for="searchtext">
+                <h3>ระบบลงทะเบียน</h3>
+            </label>
+        </div>
+    </center>
+
+    <div class="container list">
+        <form id="myForm" class="needs-validation" novalidate>
+            <div class="row justify-content-start g-3">
+                <div class="col-12">
+                    <label for="obj1"><i class="fa-solid fa-book-reader"></i> หลักสูตร</label>
+                    <select id="obj1" name="obj1" class="form-control" required>
+                        <option value="">โปรดเลือกหลักสูตร</option>
+                        <option value="หลักสูตรทดสอบ">หลักสูตรทดสอบ</option>
+                        <option value="หลักสูตรทดสอบ2">หลักสูตรทดสอบ2</option>
+                        <option value="หลักสูตรทดสอบ3">หลักสูตรทดสอบ3</option>
+                        <!-- เพิ่ม option ตามหลักสูตรที่ต้องการ -->
+                    </select>
+                    <div class="invalid-feedback">
+                        โปรดเลือกหลักสูตร
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="obj2"><i class="fa-solid fa-list-ol"></i> เลขที่</label>
+                    <input type="text" id="obj2" name="obj2" class="form-control" placeholder="เช่น 101 , 202 , 303 , 404" required>
+                    <div class="invalid-feedback">
+                        กรอกเลขที่ประจำตัวของคุณ เช่น 101 , 102
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="obj3"><i class="fa-solid fa-user"></i> ชื่อ-สกุล</label>
+                    <input type="text" id="obj3" name="obj3" class="form-control" placeholder="เช่น สมชาย ใจดี" required>
+                    <div class="invalid-feedback">
+                        กรอก ชื่อ-สกุลของคุณ
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="obj4"><i class="fa-solid fa-circle-user"></i> ชื่อเล่น</label>
+                    <input type="text" id="obj4" name="obj4" class="form-control" placeholder="กรอกชื่อเล่นของคุณ" required>
+                    <div class="invalid-feedback">
+                        กรอกชื่อเล่นของคุณ
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="obj5"><i class="fa-solid fa-address-card"></i> ที่อยู่</label>
+                    <input type="text" id="obj5" name="obj5" class="form-control" placeholder="เช่น 191 หมู่ 8 ตำบล ใจกว้าง อำเภอ ใจหาย จังหวัด ใจรัก" required>
+                    <div class="invalid-feedback">
+                        กรอกที่อยู่ของคุณ
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="obj6"><i class="fa-solid fa-phone"></i> เบอร์โทร</label>
+                    <input type="text" id="obj6" name="obj6" maxlength="10" class="form-control" placeholder="เช่น 0812345678" required>
+                    <div class="invalid-feedback">
+                        กรอกเบอร์โทรของคุณ
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="place"><i class="fa-solid fa-envelope"></i> อีเมล์หรือช่องทางติดต่อ</label>
+                    <input type="text" id="place" name="place" class="form-control" placeholder="กรอก Email ของคุณ" required>
+                    <div class="invalid-feedback">
+                        กรอกอีเมล์ของคุณ
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="name"><i class="fa-solid fa-birthday-cake"></i> วันเดือนปีเกิด</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="เช่น 01012540" required>
+                    <div class="invalid-feedback">
+                        กรอกวันเดือนปีเกิดของคุณ
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="device"><i class="fa-regular fa-circle-user"></i> ศาสนา</label>
+                    <input type="text" id="device" name="device" class="form-control" placeholder="เช่น พุทธ , อิสลาม" required>
+                    <div class="invalid-feedback">
+                        กรอกศาสนาของคุณ
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="problem"><i class="fa-solid fa-home"></i> ที่ทำงานปัจจุบัน</label>
+                    <input type="text" id="problem" name="problem" class="form-control" placeholder="เช่น เลขที่ 171 ถนนพหลโยธิน แขวงบางมด เขตจอมทอง จังหวัด กรุงเทพ" required>
+                    <div class="invalid-feedback">
+                        กรอกที่ทำงานของคุณ
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="phone"><i class="fa-solid fa-phone"></i> ชื่อและเบอร์โทรผู้ที่ติดต่อได้</label>
+                    <input type="text" id="phone" name="phone" class="form-control" placeholder="เช่น สมชาย ใจดี โทร.0812345678" required>
+                    <div class="invalid-feedback">
+                        กรอกชื่อและเบอร์โทรผู้ที่ติดต่อได้
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="file"><i class="fa-solid fa-file"></i> อัพโหลดรูปประจำตัว</label>
+                    <input type="file" id="file" class="form-control">
+                    <div class="invalid-feedback">
+                        อัพโหลดรูปของคุณ
+                    </div>
+                </div>
+
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-warning w-100"><i class="bi bi-check-circle-fill"></i>&nbsp;บันทึกข้อมูลของคุณ</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
+
+<script>
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwBDIwU4u6oNlsGlbdW6tR2jL66vw5TY7QiOazARu442igxryw-oZlSbtIUnLaQiRRj/exec'; // จุดที่ต้องเปลี่ยน ลิ้งค์ exec ของท่าน
+    var uid;
+    $(document).ready(() => {
+        liff.init({
+            liffId: '2006299121-bk0W0EEa', //จุดที่ต้องเปลี่ยนนำ Liff id ของท่านมาใส่
+            withLoginOnExternalBrowser: true
+        });
+        liff.ready.then(() => {
+            console.log('liff พร้อมใช้งานแล้ว');
+        });
+    });
+
+    function submit() {
+        $.LoadingOverlay('show');
+
+        // Read the selected file
+        const fileInput = $('#file')[0];
+        if (fileInput.files.length === 0) {
+            $.LoadingOverlay('hide');
+            alert('Please select a file.');
+            return;
+        }
+
+        const file = fileInput.files[0];
+        const fr = new FileReader();
+        fr.onload = function (e) {
+            const base64File = e.target.result.replace(/^.*,/, '');
+
+            let data = {
+                opt: 'savedata',
+                uid: liff.getDecodedIDToken().sub,
+                obj1: $('#obj1').val(),
+                obj2: $('#obj2').val(),
+                obj3: $('#obj3').val(),
+                obj4: $('#obj4').val(),
+                obj5: $('#obj5').val(),
+                obj6: $('#obj6').val(),
+                name: $('#name').val(),
+                phone: $('#phone').val(),
+                device: $('#device').val(),
+                problem: $('#problem').val(),
+                place: $('#place').val(),
+                file: base64File, // Add the Base64-encoded file to the data object
+            };
+
+            // Send the AJAX request with the file data
+            $.ajax({
+                method: "POST",
+                url: scriptUrl,
+                data: data,
+                dataType: 'json',
+                success: function (res) {
+                    $.LoadingOverlay('hide');
+                    if (res.status == 'success') {
+                        // reset the form
+                        $('#myForm')[0].reset();
+                        return Swal.fire({
+                            icon: 'success',
+                            title: 'บันทึกข้อมูลเรียบร้อย',
+                            allowOutsideClick: false,
+                            confirmButtonText: 'ตกลง',
+                        }).then(() => {
+                          
+                            liff.closeWindow();
+                            
+                        });
+                    }
+                    return Swal.fire({
+                        icon: 'error',
+                        title: 'เกิดข้อผิดพลาด',
+                        allowOutsideClick: false,
+                        confirmButtonText: 'ตกลง',
+                    });
+                },
+                error: function (err) {
+                    console.log(err);
+                    $.LoadingOverlay('hide');
+                    alert('บันทึกข้อมูลไม่สำเร็จ');
+                },
+            });
+        };
+        fr.readAsDataURL(file);
+    }
+</script>
+
+<script>
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                event.preventDefault();
+                if (!form.checkValidity()) {
+                    event.stopPropagation();
+                    form.classList.add('was-validated');
+                    $('#myForm').find(":invalid").first().focus();
+                } else {
+                    submit();
+                }
+            }, false);
+        });
+    })();
+</script>
+
+<!-- ปุ่มกลับด้านบน -->
+<script>
+    var btn = $('#button');
+
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 300) {
+            btn.addClass('show');
+        } else {
+            btn.removeClass('show');
+        }
+    });
+
+    btn.on('click', function(e) {
+        e.preventDefault();
+        $('html, body').animate({scrollTop: 0}, '300');
+    });
+</script>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+
+
+  <br />
+
+
+</body>
+
+</html>
