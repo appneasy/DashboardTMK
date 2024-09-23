@@ -36,7 +36,7 @@
     <script>
       
         $(document).ready(function () {
-            var liffId = "2006299121-ZD5j5nnQ"; //จุด 1 ที่ต้องเปลี่ยน
+            var liffId = "2006373658-PXBenXwQ"; //จุด 1 ที่ต้องเปลี่ยน   ปรับแก้ไข เป็น https://tmk-mu.vercel.app/login.html  devline OK
             initializeLiff(liffId);
         });
 
@@ -63,7 +63,7 @@
         }
 
         function sendToGoogleSheet(userId, name, picture) {
-            $.post('https://script.google.com/macros/s/AKfycbxd60MEesNEIRX63Xox2AK0o7Ws8cnXOa607CGq65P6_32lVGUwcHAdHs33LVz__Ia5/exec', { userId: userId, name: name, picture: picture })
+            $.post('xxxxxxxx', { userId: userId, name: name, picture: picture })
             .done(function(response) {
                 if (response.statusCode === 200) {
                     const flexMessage = JSON.parse(response.body);
