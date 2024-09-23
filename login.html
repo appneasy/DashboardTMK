@@ -63,7 +63,8 @@
         }
 
         function sendToGoogleSheet(userId, name, picture) {
-            $.post('xxxxxxxx', { userId: userId, name: name, picture: picture })
+            $.post('https://script.google.com/macros/s/AKfycbyjfDX3vMUgRiNqX59CDyZXFNwJsPsjFGYwZKakaVTp8OdGyQu4FX-kQQ009Eth8KG9/exec', { userId: userId, name: name, picture: picture })
+            //ปรับเป็น 4_LineDashboard_Login Appscript แล้ว
             .done(function(response) {
                 if (response.statusCode === 200) {
                     const flexMessage = JSON.parse(response.body);
