@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CAPACITY</title>
+</head>
+
+<body>
+    <iframe width="390" height="1200" src="https://lookerstudio.google.com/embed/reporting/07c1f26f-1611-4dde-90d5-36c3e94fac89/page/HdYCE" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $(document).ready(function () {
+        var liffId = "2006373658-1gPBp5em"; // เปลี่ยนเป็น LIFF ID ของคุณ  เปลี่ยนเป็น yield_page แล้ว
+        initializeLiff(liffId);
+    });
+
+    function initializeLiff(liffId) {
+        liff.init({
+            liffId: liffId,
+            withLoginOnExternalBrowser: true,
+        })
+        .then(() => {
+            if (!liff.isInClient() && !liff.isLoggedIn()) {
+                window.alert("กรุณาเข้าสู่ระบบบัญชี LINE ของคุณ");
+                liff.login({ redirectUri: location.href });
+            }
+            liff.ready.then(() => {
+                const userId = liff.getDecodedIDToken().sub;
+                checkRegistrationStatus(userId);
+            });
+        })
+        .catch((err) => {
+            console.log('LIFF Initialization failed', err);
+        });
+    }
+//เปลี่ยน exec เป็น check_login
+    function checkRegistrationStatus(userId) {
+        $.get('https://script.google.com/macros/s/AKfycbw1elJFFDna5fNRxhz0WJPzApomAC9mcb2HYEi_SopGHr9egV3BYj6eooTqrjgUnS9w8g/exec', { userId: userId })
+        .done(function(response) {
+            if (response.status === "Allow") {
+                // ดำเนินการต่อ
+                Swal.fire(
+                    'ยินดีต้อนรับ',
+                    'คุณได้รับการอนุญาตให้ใช้งาน',
+                    'success'
+                );
+            } else {
+                // ถ้าไม่ได้รับอนุญาต
+                Swal.fire(
+                    'ไม่สามารถเข้าใช้งานได้',
+                    'คุณไม่ได้รับอนุญาตให้ใช้งานระบบ',
+                    'error'
+                ).then(() => {
+                    liff.logout();
+                    window.location.href = "https://www.canva.com/design/DAGQ6AbXPBs/GtfoOe0ASJaQ9i58RwGwAg/view"; // เปลี่ยนเป็น URL ที่ต้องการให้ผู้ใช้กลับไป
+                });
+            }
+        })
+        .fail(function(error) {
+            Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถตรวจสอบสถานะได้', 'warning');
+        });
+    }
+</script>
+</html>
