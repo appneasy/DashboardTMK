@@ -40,7 +40,7 @@
     }
 //เปลี่ยน exec เป็น check_login
     function checkRegistrationStatus(userId) {
-        $.get('https://script.google.com/macros/s/AKfycbyezpui5ILPtuVU1NvkbEQ9lQymXVyU8yqdhIov_LK_s6kBTUts5Q9Z0r8Yqav4LqkKHQ/exec', { userId: userId })
+        $.get('https://script.google.com/macros/s/AKfycbw1elJFFDna5fNRxhz0WJPzApomAC9mcb2HYEi_SopGHr9egV3BYj6eooTqrjgUnS9w8g/exec', { userId: userId })
         .done(function(response) {
             if (response.status === "Allow") {
                 // ดำเนินการต่อ
