@@ -135,7 +135,7 @@
     </button>
     <center>
         <br />
-        <img src="https://tmk-mu.vercel.app/images/LogoTMKG01.png" style="width:200px; height:auto; padding-bottom: 10px;">
+        <img src="https://tmk-mu.vercel.app/images/RegisterTItle.png" style="width:200px; height:auto; padding-bottom: 10px;">
         <div class="form-group mb-2">
             <label for="searchtext">
                 <h3>ลงทะเบียน</h3>
@@ -149,22 +149,22 @@
                 <div class="col-12">
                     <label for="obj1"><i class="fa-solid fa-book-reader"></i> หลักสูตร</label>
                     <select id="obj1" name="obj1" class="form-control" required>
-                        <option value="">โปรดเลือกหลักสูตร</option>
-                        <option value="หลักสูตรทดสอบ">หลักสูตรทดสอบ</option>
-                        <option value="หลักสูตรทดสอบ2">หลักสูตรทดสอบ2</option>
-                        <option value="หลักสูตรทดสอบ3">หลักสูตรทดสอบ3</option>
+                        <option value="">ระดับการเข้าถึง</option>
+                        <option value="ปกติ">ปกติ</option>
+                        <option value="บริหาร">บริหาร</option>
+                        <option value="กรรมการ">กรรมการ</option>
                         <!-- เพิ่ม option ตามหลักสูตรที่ต้องการ -->
                     </select>
                     <div class="invalid-feedback">
-                        โปรดเลือกหลักสูตร
+                        โปรดเลือกระดับเข้าถึง
                     </div>
                 </div>
 
                 <div class="col-12">
                     <label for="obj2"><i class="fa-solid fa-list-ol"></i> เลขที่</label>
-                    <input type="text" id="obj2" name="obj2" class="form-control" placeholder="เช่น 101 , 202 , 303 , 404" required>
+                    <input type="text" id="obj2" name="obj2" class="form-control" placeholder="เช่น 5xxx,6xxx" required>
                     <div class="invalid-feedback">
-                        กรอกเลขที่ประจำตัวของคุณ เช่น 101 , 102
+                        กรอกรหัสพนักงาน 6xxxxxx
                     </div>
                 </div>
 
@@ -176,72 +176,89 @@
                     </div>
                 </div>
 
-                <div class="col-12">
+                <!-- <div class="col-12">
                     <label for="obj4"><i class="fa-solid fa-circle-user"></i> ชื่อเล่น</label>
                     <input type="text" id="obj4" name="obj4" class="form-control" placeholder="กรอกชื่อเล่นของคุณ" required>
                     <div class="invalid-feedback">
                         กรอกชื่อเล่นของคุณ
                     </div>
-                </div>
+                </div> -->
 
-                <div class="col-12">
+                <!-- <div class="col-12">
                     <label for="obj5"><i class="fa-solid fa-address-card"></i> ที่อยู่</label>
                     <input type="text" id="obj5" name="obj5" class="form-control" placeholder="เช่น 191 หมู่ 8 ตำบล ใจกว้าง อำเภอ ใจหาย จังหวัด ใจรัก" required>
                     <div class="invalid-feedback">
                         กรอกที่อยู่ของคุณ
                     </div>
-                </div>
+                </div> -->
 
-                <div class="col-12">
+                <!-- <div class="col-12">
                     <label for="obj6"><i class="fa-solid fa-phone"></i> เบอร์โทร</label>
                     <input type="text" id="obj6" name="obj6" maxlength="10" class="form-control" placeholder="เช่น 0812345678" required>
                     <div class="invalid-feedback">
                         กรอกเบอร์โทรของคุณ
                     </div>
-                </div>
+                </div> -->
 
-                <div class="col-12">
+                <!-- <div class="col-12">
                     <label for="place"><i class="fa-solid fa-envelope"></i> อีเมล์หรือช่องทางติดต่อ</label>
                     <input type="text" id="place" name="place" class="form-control" placeholder="กรอก Email ของคุณ" required>
                     <div class="invalid-feedback">
                         กรอกอีเมล์ของคุณ
                     </div>
-                </div>
+                </div> -->
 
                 <div class="col-12">
                     <label for="name"><i class="fa-solid fa-birthday-cake"></i> วันเดือนปีเกิด</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="เช่น 01012540" required>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="เช่น วว/ดด/ปปปป คศ" required>
                     <div class="invalid-feedback">
                         กรอกวันเดือนปีเกิดของคุณ
                     </div>
                 </div>
 
-                <div class="col-12">
+                <!-- <div class="col-12">
                     <label for="device"><i class="fa-regular fa-circle-user"></i> ศาสนา</label>
                     <input type="text" id="device" name="device" class="form-control" placeholder="เช่น พุทธ , อิสลาม" required>
                     <div class="invalid-feedback">
                         กรอกศาสนาของคุณ
                     </div>
-                </div>
+                </div> -->
 
                 <div class="col-12">
-                    <label for="problem"><i class="fa-solid fa-home"></i> ที่ทำงานปัจจุบัน</label>
-                    <input type="text" id="problem" name="problem" class="form-control" placeholder="เช่น เลขที่ 171 ถนนพหลโยธิน แขวงบางมด เขตจอมทอง จังหวัด กรุงเทพ" required>
+                    <label for="problem"><i class="fa-solid fa-home"></i> ฝ่าย/แผนก ทำงาน</label>
+                    <select id="problem" name="problem" class="form-control" required>
+                        <option value="">คุณทำงานในฝ่าย?</option>
+                        <option value="บริหาร">บริหาร</option>
+                        <option value="ควบคุมคุณภาพ">ควบคุมคุณภาพ</option>
+                        <option value="ผลิตน้ำมันปาล์ม">ผลิตน้ำมันปาล์ม</option>
+                        <option value="ผลิตไฟฟ้า บอยเลอร์">ผลิตไฟฟ้า บอยเลอร์</option>
+                        <option value="ผลิตไฟฟ้า ไบโอแก๊ส">ผลิตไฟฟ้า ไบโอแก๊ส</option>
+                        <option value="วิศวกรรม">วิศวกรรม</option>
+                        <option value="บัญชี">บัญชี</option>
+                        <option value="ที่ปรึกษา">ที่ปรึกษา</option> 
+                        <option value="TMKPO">TMKPO</option>                       
+                        <!-- เพิ่ม option ที่ต้องการ -->
+                    </select>
+                    <div class="invalid-feedback">
+                        โปรดเลือก ฝ่าย/แผนก ให้ตรง
+                    </div>
+
+                    <!-- <input type="text" id="problem" name="problem" class="form-control" placeholder="เช่น เลขที่ 171 ถนนพหลโยธิน แขวงบางมด เขตจอมทอง จังหวัด กรุงเทพ" required>
                     <div class="invalid-feedback">
                         กรอกที่ทำงานของคุณ
-                    </div>
+                    </div> -->
                 </div>
 
-                <div class="col-12">
+                <!-- <div class="col-12">
                     <label for="phone"><i class="fa-solid fa-phone"></i> ชื่อและเบอร์โทรผู้ที่ติดต่อได้</label>
                     <input type="text" id="phone" name="phone" class="form-control" placeholder="เช่น สมชาย ใจดี โทร.0812345678" required>
                     <div class="invalid-feedback">
                         กรอกชื่อและเบอร์โทรผู้ที่ติดต่อได้
                     </div>
-                </div>
+                </div> -->
 
                 <div class="col-12">
-                    <label for="file"><i class="fa-solid fa-file"></i> อัพโหลดรูปประจำตัว</label>
+                    <label for="file"><i class="fa-solid fa-file"></i> อัพโหลดรูปเพื่อยืนยัน</label>
                     <input type="file" id="file" class="form-control">
                     <div class="invalid-feedback">
                         อัพโหลดรูปของคุณ
@@ -249,7 +266,7 @@
                 </div>
 
                 <div class="col-12 text-center">
-                    <button type="submit" class="btn btn-warning w-100"><i class="bi bi-check-circle-fill"></i>&nbsp;บันทึกข้อมูลของคุณ</button>
+                    <button type="submit" class="btn btn-warning w-100"><i class="bi bi-check-circle-fill"></i>&nbsp;บันทึกข้อมูล</button>
                 </div>
             </div>
         </form>
