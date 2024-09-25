@@ -63,7 +63,7 @@
         }
 
         function sendToGoogleSheet(userId, name, picture) {
-            $.post('https://script.google.com/macros/s/AKfycbyfNhCfCv9yU1dJN2zdaqYVaQDmFf98bDr5i3o8l58xdmoLRCZrpqSQgtZi7z-xRNdQ/exec', { userId: userId, name: name, picture: picture })
+            $.post('https://script.google.com/macros/s/AKfycbziLCFoxQngdyVS0ayxN9pLP1AvvbNwl_kJmMBeDqfEq_Ka9JxTGQpX9HxPW8RBgIMW/exec', { userId: userId, name: name, picture: picture })
             //ปรับเป็น 4_LineDashboard_Login Appscript แล้ว
             .done(function(response) {
                 if (response.statusCode === 200) {
