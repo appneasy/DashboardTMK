@@ -3,94 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>DataTables with Bootstrap 5</title>
-  
+  <title>Data Table</title>
   <!-- Bootstrap 5 CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <!-- DataTables.net CDN -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-
-  <!-- Custom CSS -->
-  <style>
-    body {
-      padding: 20px;
-    }
-
-    table {
-      width: 100% !important;
-    }
-
-    /* Ensure the table is responsive on mobile */
-    @media (max-width: 768px) {
-      table {
-        font-size: 12px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 </head>
 <body>
 
   <div class="container">
-    <h1 class="text-center mb-4">Data from Google Sheet</h1>
-
-    <!-- Table for DataTables -->
-    <div class="table-responsive">
-      <table id="example" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-          <tr>
-            <th>วันที่</th>
-            <th>เวลา</th>
-            <th>ทะลาย(ตัน)</th>
-            <th>ร่วง(ตัน)</th>
-            <th>ทะลาย+ร่วง(ตัน)</th>
-            <th>%</th>
-            <th>(ตัน)</th>
-            <th>หมายเหตุ</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
+    <h2 class="mt-5">Data Table</h2>
+    <table id="dataTable" class="display" style="width:100%">
+      <thead>
+        <tr>
+          <th>วันที่</th>
+          <th>เวลา</th>
+          <th>ทะลาย(ตัน)</th>
+          <th>ร่วง(ตัน)</th>
+          <th>ทะลาย+ร่วง(ตัน)</th>
+          <th>%</th>
+          <th>หมายเหตุ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- ข้อมูลจะถูกแทรกในนี้ -->
+      </tbody>
+    </table>
   </div>
 
-  <!-- jQuery (necessary for DataTables) -->
+  <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+  <!-- DataTables.net JS CDN -->
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
   <!-- Bootstrap 5 JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- DataTables.net CDN -->
-  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-
-  <!-- Custom Script to Initialize DataTables -->
   <script>
     $(document).ready(function() {
-      $('#example').DataTable({
-        "ajax": {
-          "url": "https://script.google.com/macros/s/AKfycbytC6CPqrDi_P1KF1VcJoQ5_Z7ia3ITP3UMRyc5kjrXj_10GvzcgshMuszsaZD2UiBJlw/exec", // API URL
-          "type": "GET",
-          "dataSrc": ""
-        },
-        "columns": [
-          { "data": "วันที่" },
-          { "data": "เวลา" },
-          { "data": "ทะลาย(ตัน)" },
-          { "data": "ร่วง(ตัน)" },
-          { "data": "ทะลาย+ร่วง(ตัน)" },
-          { "data": "%" },
-          { "data": "(ตัน)" },
-          { "data": "หมายเหตุ" }
-        ],
-        "responsive": true,
-        "paging": true,
-        "searching": true,
-        "ordering": true,
-        "info": true
-      });
+      // Preflight Request with fetch for API call
+      const url = 'https://script.google.com/macros/s/AKfycbylZcin-Mf8Wf6Q2X_AL3cjaQpTySOHbJrrU3YnqgnX_uA3Nck1D8-83lIQm6ZMP18unQ/exec';
+
+      // Set up the preflight OPTIONS request
+      const preflightRequest = async () => {
+        try {
+          const optionsResponse = await fetch(url, {
+            method: 'OPTIONS',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          
+          if (optionsResponse.ok) {
+            console.log('Preflight request successful. Proceeding to fetch data...');
+            // Now make the GET request to fetch data
+            fetchData();
+          } else {
+            console.error('Preflight request failed');
+          }
+        } catch (error) {
+          console.error('Error during preflight request:', error);
+        }
+      };
+
+      // Fetch data from the API
+      const fetchData = async () => {
+        try {
+          const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            console.log('Data:', data);
+
+            // Populate the DataTable with data
+            $('#dataTable').DataTable({
+              data: data,
+              columns: [
+                { data: 'วันที่' },
+                { data: 'เวลา' },
+                { data: 'ทะลาย(ตัน)' },
+                { data: 'ร่วง(ตัน)' },
+                { data: 'ทะลาย+ร่วง(ตัน)' },
+                { data: '%' },
+                { data: 'หมายเหตุ' }
+              ]
+            });
+          } else {
+            console.error('Failed to fetch data');
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+
+      // Run the preflight request first
+      preflightRequest();
     });
   </script>
 
