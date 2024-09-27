@@ -33,16 +33,21 @@
 <body>
 
   <div class="container">
-    <h1 class="text-center mb-4">DataTables Example</h1>
+    <h1 class="text-center mb-4">Data from Google Sheet</h1>
 
     <!-- Table for DataTables -->
     <div class="table-responsive">
       <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
+            <th>วันที่</th>
+            <th>เวลา</th>
+            <th>ทะลาย(ตัน)</th>
+            <th>ร่วง(ตัน)</th>
+            <th>ทะลาย+ร่วง(ตัน)</th>
+            <th>%</th>
+            <th>(ตัน)</th>
+            <th>หมายเหตุ</th>
           </tr>
         </thead>
         <tbody>
@@ -66,14 +71,19 @@
     $(document).ready(function() {
       $('#example').DataTable({
         "ajax": {
-          "url": "YOUR_WEBAPP_URL?action=fetch", // Replace with your Web App URL
+          "url": "https://script.google.com/macros/s/AKfycbwo_ud2YVPGlrO6USoK53Hw0ap77A_K4744oLY5ZQpdwZpFixK-9b8YAhMGONeS-jyOHw/exec", // API URL
           "type": "GET",
-          "dataSrc": "data" // Data source from the response
+          "dataSrc": ""
         },
         "columns": [
-          { "data": "id" },
-          { "data": "name" },
-          { "data": "age" }
+          { "data": "วันที่" },
+          { "data": "เวลา" },
+          { "data": "ทะลาย(ตัน)" },
+          { "data": "ร่วง(ตัน)" },
+          { "data": "ทะลาย+ร่วง(ตัน)" },
+          { "data": "%" },
+          { "data": "(ตัน)" },
+          { "data": "หมายเหตุ" }
         ],
         "responsive": true,
         "paging": true,
