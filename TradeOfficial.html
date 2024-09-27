@@ -1,33 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CORS Test</title>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed Google Apps Script</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* ซ่อน scroll bar */
+        }
+
+        iframe {
+            width: 100%;
+            height: 100vh; /* ปรับขนาด iframe ให้เต็มหน้าจอ */
+            border: none; /* ไม่มีขอบ iframe */
+        }
+    </style>
 </head>
 <body>
-
-  <h1>CORS Test with Google Apps Script</h1>
-  <button id="fetchData">Fetch Data</button>
-  <pre id="output"></pre>
-
-  <script>
-    $(document).ready(function() {
-      $('#fetchData').click(function() {
-        $.ajax({
-          url: "https://script.google.com/macros/s/AKfycbzeqFPPvrr1frP8tkOTs2IgA8RlsyHivZteYbO-A389hv-EoJSbEeGK0HKM0YFy63zYwA/exec", // URL ของ Apps Script
-          type: "GET",
-          success: function(data) {
-            $('#output').text(JSON.stringify(data, null, 2)); // แสดงข้อมูลที่ได้ในรูปแบบ JSON
-          },
-          error: function(xhr, status, error) {
-            $('#output').text("Error: " + xhr.responseText); // แสดงข้อผิดพลาด
-          }
-        });
-      });
-    });
-  </script>
-
+    <iframe src="https://script.google.com/a/macros/tmkpalmoil.co.th/s/AKfycbznaj-hzZuGZmeDwVUqyzk0-0EoD_dZXNd_UEoZxTPqlA6_SEUW4MiREfNVrKM7RLtA-Q/exec"></iframe>
 </body>
 </html>
